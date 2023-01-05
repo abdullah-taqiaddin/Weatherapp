@@ -43,13 +43,13 @@ function setPosition(position){
             var sunRiseUnix = new Date (data['sys']['sunrise'] * 1000);
             sunRiseUnix = sunRiseUnix.getHours() +":" + sunRiseUnix.getMinutes();
             
-            locationCity.innerHTML = cityName;
-            locationCountry.innerHTML = countryName;
-            temp.innerHTML = tempValue;
-            description.innerHTML = descvalue;
+            locationCity.innerHTML = "city name: "+ cityName;
+            locationCountry.innerHTML = "country name: "+ countryName;
+            temp.innerHTML = "temp: "+ Math.round(tempValue)+"\u00B0";
+            description.innerHTML = "descval: "+descvalue;
 
 
-             sunRise.innerHTML = sunRiseUnix;
+             sunRise.innerHTML = "sunrise time: "+sunRiseUnix;
             // sunSet.innerHTML = data['sys']['sunset'];
 
         })
