@@ -3,10 +3,15 @@ html{
     height: 100%;
 }
 body{
+    
     background-color: #a6d5df;
+    font-size: 30px;
+    color: white;
     margin: 0;
     padding: 0;
     height: 100%;
+    font-family: 'Almarai', sans-serif;
+    font-family: 'Raleway', sans-serif;
 }
 .mainContainer{
     position: relative;
@@ -39,7 +44,6 @@ body{
 }
 #errmsg{
     /*border: 0.1em solid black;*/
-    font-family: 'Lora', serif;
     color: rgb(255, 255, 255);
     font-size: 10%;
     font-size: 15px;
@@ -56,19 +60,19 @@ body{
     margin-top: -2%;
 }
 #welcome{
-    font-family: 'Lora', serif;
     font-size: 10%;
     font-size: 70px;
     letter-spacing: 1vw;
     font-weight: lighter;
 }
 #textbox1{
-    font-family: 'Montserrat', sans-serif;
     color: rgb(255, 255, 255);
     letter-spacing: 0.5vw;
     font-size: 30px;
 }
 .slide2{
+    font-size: 30px;
+    text-align: center;
     background-color: #a6d5df;
     margin:0px;
     width: 100%;
@@ -76,4 +80,24 @@ body{
     position: absolute;
     z-index: 0;
     transform:rotateY(180deg);
+}
+.slide2style{
+    flex-direction: column;
+    display: flex;
+    gap: 10px;
+    text-align: center;
+    margin: 50px;
+}
+#c{
+    font-size: 150px;
+    font-weight: bolder;
+}
+#Location{
+    font-size: 80px;
+    font-weight: bolder;
+}
+#errmsg{
+    font-size: 30px;
+    font-weight: bolder;
+    color: rgb(255, 227, 125);
 }

@@ -1,9 +1,42 @@
+function convert(input) {
+    return moment(input, 'HH:mm').format('h:mm');
+}
+
+
+
+let mapnum = {
+    "0":"۰",
+    "1":"۱",
+    "2":"۲",
+    "3":"۳",
+    "4":"٤",
+    "5":"۵",
+    "6":"٦",
+    "7":"۷",
+    "8":"۸",
+    "9":"۹",
+}
+
+function convertnumbers(number){
+
+    let stringnumber = number.toString();
+    let arabicnumber = "";
+
+    for(var i in stringnumber){
+        if(mapnum[stringnumber[i]]){
+            arabicnumber += mapnum[stringnumber[i]];
+        }
+        else{
+            arabicnumber += stringnumber[i];}
+    }
+    return arabicnumber;
+
+}
+
 const kelvin = 273;
 const key = "2449d9929be33e0af5bde76d1e7931af";
 document.getElementById('errmsg').style.display = 'none';
-
 const notif = document.querySelector('#errmsg');
-
 const locationCity = document.querySelector('#city');
 const locationCountry = document.querySelector('#country');
 const iconElement = document.querySelector('#weather-icon');
@@ -12,12 +45,9 @@ const description = document.querySelector('#desc');
 const sunRise = document.querySelector('#sunrise');
 const sunSet = document.querySelector('#sunset');
 
-//{'https://api.openweathermap.org/data/2.5/weather?q='+input.value+'&appid=50a7aa80fa492fa92e874d23ad061374'}
-
 
 if("geolocation" in navigator){
     navigator.geolocation.getCurrentPosition(setPosition , showErr);
-   
 }
 else{
     document.getElementById('errmsg').style.display = 'block';
@@ -31,38 +61,38 @@ function setPosition(position){
         let long = position.coords.longitude;
         //cont.style.zIndex="1" ;
         console.log(lat,long);
-        fetch("https://api.openweathermap.org/data/2.5/weather?lat="+ lat + "&lon="+ long +"&appid="+key+"&units=metric")
+        fetch("https://api.openweathermap.org/data/2.5/weather?lat="+ lat + "&lon="+ long +"&appid="+key+"&units=metric"+"&lang=ar")
         .then(Response => Response.json()).then(data => 
         {
-            console.log(data)
-            var cityName = data['name'];
-            var countryName = data['sys']['country'];
-            var tempValue = data['main']['temp'];
-            var descvalue = data['weather'][0]['description'];
-            
-            var sunRiseUnix = new Date (data['sys']['sunrise'] * 1000);
-            sunRiseUnix = sunRiseUnix.getHours() +":" + sunRiseUnix.getMinutes();
-            
-            locationCity.innerHTML = "city name: "+ cityName;
-            locationCountry.innerHTML = "country name: "+ countryName;
-            temp.innerHTML = "temp: "+ Math.round(tempValue)+"\u00B0";
-            description.innerHTML = "descval: "+descvalue;
+            if(data != null){
+                console.log(data);
+                var cityName = data['name'];
+                var tempValue = data['main']['temp'];
+                var descvalue = data['weather'][0]['description'];
+                var sunRiseUnix = new Date (data['sys']['sunrise'] * 1000);
+                var sunSetUnix = new Date (data['sys']['sunset'] * 1000);
+                locationCity.innerHTML = cityName;
+                sunRiseUnix = sunRiseUnix.getHours() +":" + sunRiseUnix.getMinutes();
+                sunSetUnix = sunSetUnix.getHours() +":" + sunSetUnix.getMinutes();
+
+                temp.innerHTML = convertnumbers(Math.round(tempValue))+"\u00B0";
+                description.innerHTML =descvalue;
 
 
-             sunRise.innerHTML = "sunrise time: "+sunRiseUnix;
-            // sunSet.innerHTML = data['sys']['sunset'];
-
-        })
-        .catch();
-        //getWeather(lat , long);
+                sunRise.innerHTML = convertnumbers(sunRiseUnix)+" :الشروق";
+                sunSet.innerHTML = convertnumbers(convert(sunSetUnix)).concat(" :الغروب")
+                }
+            })
 
 
-}
+    }
+
+
 function showErr(error){
     console.log(error);
     document.getElementById('errmsg').style.display = 'block';
     if(error.message === 'User denied Geolocation'){
-        document.getElementById('errmsg').innerHTML = "<p>"+'Please allow access to your geolocation'+"</p>";    
+        document.getElementById('errmsg').innerHTML = "<p font-weight: bolder>"+'Please allow access to your geolocation'+"</p>";    
     }
     //document.getElementById('errmsg').innerHTML = "<p>"+error.message+"</p>";
 }
