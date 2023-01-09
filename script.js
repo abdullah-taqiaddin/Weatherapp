@@ -34,7 +34,7 @@ function convertnumbers(number){
 }
 
 const kelvin = 273;
-const key = "2449d9929be33e0af5bde76d1e7931af";
+const key = ""; //INSERT KEY HERE, TO GET A KEY PLEASE VISIT https://openweathermap.org/
 document.getElementById('errmsg').style.display = 'none';
 const notif = document.querySelector('#errmsg');
 const locationCity = document.querySelector('#city');
